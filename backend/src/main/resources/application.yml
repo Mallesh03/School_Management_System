@@ -1,28 +1,31 @@
 spring:
   application:
     name: student-management-backend
+
   datasource:
-    url: jdbc:mysql://localhost:3306/student_management?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata
-    username: root
-    password: 
+    url: ${DB_URL:jdbc:mysql://localhost:3306/student_management?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
         jdbc:
           time_zone: Asia/Kolkata
         physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     open-in-view: false
+
   mvc:
     problemdetails:
       enabled: false
 
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 app:
   bootstrap-admin:
@@ -30,6 +33,7 @@ app:
     name: ${APP_ADMIN_NAME:System Administrator}
     email: ${APP_ADMIN_EMAIL:admin@college.com}
     password: ${APP_ADMIN_PASSWORD:Admin@123}
+
   jwt:
     secret: ${JWT_SECRET:c3R1ZGVudC1tYW5hZ2VtZW50LXNlY3JldC1rZXktc3R1ZGVudC1tYW5hZ2VtZW50LXNlY3JldC1rZXk=}
     expiration-ms: 86400000
@@ -37,4 +41,4 @@ app:
 logging:
   level:
     org.springframework.security: INFO
-    org.hibernate.SQL: DEBUG
+    org.hibernate.SQL: INFO
